@@ -23,6 +23,6 @@
   },
   "scripts": {
     "webpack:deploy": "./bin/webpack",
-    "heroku-postbuild": "yarn run webpack:deploy"
+    "heroku-postbuild": "npm run webpack:deploy"
   }
 }
