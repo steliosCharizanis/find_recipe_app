@@ -22,7 +22,7 @@
     "webpack-dev-server": "^3"
   },
   "scripts": {
-    "webpack:deploy": "webpack --config=webpack/webpack.config.js -p",
+    "webpack:deploy": "webpack --config=webpack/production.js -p",
     "heroku-postbuild": "npm run webpack:deploy"
   }
 }
