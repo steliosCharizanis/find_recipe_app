@@ -44,6 +44,8 @@ gem 'fuzzy-string-match', '~> 0.9.7'
 
 gem 'active_model_serializers', '~> 0.10.8', require: true
 
+gem 'net-smtp', require: false
+
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platforms: %i[mri mingw x64_mingw]
