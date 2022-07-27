@@ -22,7 +22,7 @@
     "webpack-dev-server": "^3"
   },
   "scripts": {
-    "webpack:deploy": "/bin/webpack",
+    "webpack:deploy": "./bin/webpack",
     "heroku-postbuild": "yarn run webpack:deploy"
   }
 }
