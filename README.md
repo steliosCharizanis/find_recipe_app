@@ -6,14 +6,17 @@ application up and running.
 Things you may want to cover:
 
 * Ruby version
+ruby 3.1.0
 
 * System dependencies
+react
 
 * Configuration
 
 * Database creation
 
 * Database initialization
+rake import:ingredients import:recipes import_associations:recipe_ingredients
 
 * How to run the test suite
 
