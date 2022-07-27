@@ -1,1 +1,1 @@
-web: bundle exec rails s -p $PORT yarn start
+web: bundle exec rails webpacker:binstubs
