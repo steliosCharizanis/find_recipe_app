@@ -1,1 +1,2 @@
-web: bundle exec rails s -p $PORT npm node.js
+web: bundle exec rails s -p $PORT
+release: ./bin/webpack-server
