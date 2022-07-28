@@ -48,7 +48,7 @@ rails s
 
 ##### 5. Start Webpack dev server
 
-You can start the rails server using the command given below.
+You can start the webpack react dev server using the command given below.
 
 ```bash
 ./bin/webpack-dev-server
@@ -56,7 +56,7 @@ You can start the rails server using the command given below.
 
 And now you can visit the site with the URL http://localhost:3000
 
-##### 6. Start Webpack dev server
+##### 6. Running unit tests
 
 You can run specs using the command given below
 
