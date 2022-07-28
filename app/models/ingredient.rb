@@ -9,6 +9,8 @@ class Ingredient < ApplicationRecord
 
 	before_save :set_is_basic_ingredient_field
 
+	scope :get_basic_ingredients, -> { where(is_basic_ingredient: true) }
+
 	def self.search_by_name(item)
 		Rails.cache.fetch(item, expires_in: 1.hour) do
 			Ingredient.select(:id, :name)
