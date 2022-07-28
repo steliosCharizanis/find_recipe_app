@@ -59,20 +59,20 @@ class App extends Component {
 
 		return (
 			<div className="container">
-				<h1>Recipes Search</h1>
+				<h1>Cook with what you have!</h1>
 				<p>Enter ingredients and find a recipe to cook</p>
 				<MultipleValueTextInput
 					onItemAdded={(item, allItems) => { this.state.items.push(item); this.getSearchResults(allItems) }}
 					onItemDeleted={(item, allItems) => { this.state.items.pop(item); this.getSearchResults(allItems) }}
-					label="Find A Recipe"
+					label="Ingredients"
 					name="item-input"
 					charCodes={[32, 44, 13]}
-					placeholder="Enter whatever items you want; separate them with COMMA or ENTER."
+					placeholder="Enter whatever items you want; separate them with COMMA, ENTER or SPACE."
 				/>
 				<div>
 					<label>
 						<input type="checkbox" defaultChecked={this.state.isChecked} onChange={this.handleChange} />
-						<span>I have basic ingredients (salt, pepper, water)</span>
+						<span>  I have basic ingredients (salt, pepper, water)</span>
 					</label>
 				</div>
 				<div className='row'>
