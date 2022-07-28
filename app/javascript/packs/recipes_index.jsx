@@ -42,17 +42,23 @@ class App extends Component {
 		//console.log("search_results " + this.state.searchResults.count)
 		//console.log("response " + response)
 		let searchList = this.state.searchResults.map((response) => {
-			return <div >
-				<h2>{response.title}</h2>
-				<p>total time {response.total_time}</p>
-				<p>ratings {response.ratings}</p>
-				<p>{response.missing_ingredients_text}</p>
-				<p>{response.id}</p>
+			return <div className='col-md-4'>
+				<div className="card">
+					<img style={{ width: '100%', height: '100px' }} src={response.image} className="card-img-top" alt="Image" />
+					<div className="card-body">
+						<h5 className="card-title">{response.title}</h5>
+						<p className="card-text">{response.missing_ingredients_text}</p>
+						<p>ratings {response.ratings}</p>
+						<p>eat in {response.total_time} minutes</p>
+						<a href="#" className="btn btn-primary">Go to Recipe</a>
+					</div>
+				</div>
 			</div>
+
 		});
 
 		return (
-			<div>
+			<div className="container">
 				<h1>Recipes Search</h1>
 				<p>Enter ingredients and find a recipe to cook</p>
 				<MultipleValueTextInput
@@ -69,7 +75,9 @@ class App extends Component {
 						<span>I have basic ingredients (salt, pepper, water)</span>
 					</label>
 				</div>
-				{searchList}
+				<div className='row'>
+					{searchList}
+				</div>
 			</div>
 		)
 	}
