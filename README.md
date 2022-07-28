@@ -13,7 +13,7 @@ The setups steps expect following tools installed on the system.
 ##### 1. Check out the repository
 
 ```bash
-https://github.com/steliosCharizanis/find_recipe_pennylane.git
+git clone https://github.com/steliosCharizanis/find_recipe_pennylane.git
 ```
 
 ##### 2. Create and setup the database
