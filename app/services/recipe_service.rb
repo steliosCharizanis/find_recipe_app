@@ -8,6 +8,7 @@ class RecipeService
 	end
 
 	def find_recipes_one_query
+		debugger
 		Recipe.joins(:recipe_ingredients)
 			.joins("left join ingredients i on i.id = recipe_ingredients.ingredient_id and i.id in (#{all_ingredients.join(',')})")
 			.where(id: recipe_ids)

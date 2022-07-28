@@ -4,6 +4,7 @@ class RecipesController < ApplicationController
   end
 
   def search
+    debugger
     recipes = params[:items].nil? || params[:items].empty? ? [] : RecipeService.new(params[:items].split(','), params[:haveBasicIngredients]).find_recipes_one_query
 
     recipes = ActiveModelSerializers::SerializableResource.new(recipes, each_serializer: RecipeSerializer)
