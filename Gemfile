@@ -45,6 +45,8 @@ gem 'fuzzy-string-match', '~> 0.9.7'
 gem 'active_model_serializers', '~> 0.10.8', require: true
 
 gem 'net-smtp', require: false
+gem 'net-imap', require: false
+gem 'net-pop', require: false
 
 gem 'rake', '~> 13.0.6'
 
