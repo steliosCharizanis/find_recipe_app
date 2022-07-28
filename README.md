@@ -16,7 +16,13 @@ The setups steps expect following tools installed on the system.
 git clone https://github.com/steliosCharizanis/find_recipe_pennylane.git
 ```
 
-##### 2. Create and setup the database
+##### 2. Install dependencies
+
+```bash
+bundle install
+```
+
+##### 3. Create and setup the database
 
 Run the following commands to create and setup the database.
 
@@ -24,7 +30,7 @@ Run the following commands to create and setup the database.
 rails db:create db:migrate
 ```
 
-##### 3. Initialize/Import data
+##### 4. Initialize/Import data
 
 Run the following commands to import data.
 
@@ -58,7 +64,7 @@ You can run specs using the command given below
 rspec spec/models/recipe_spec.rb spec/models/ingredient_spec.rb spec/requests/recipes_spec.rb
 ```
 
-##### 6. Production demo url
+##### 7. Production demo url
 
 You can visit the demo for the app at the following url
 
