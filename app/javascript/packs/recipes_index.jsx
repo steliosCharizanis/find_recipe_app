@@ -50,7 +50,7 @@ class App extends Component {
 						<p className="card-text">{response.missing_ingredients_text}</p>
 						<p>ratings {response.ratings}</p>
 						<p>eat in {response.total_time} minutes</p>
-						<a href="#" className="btn btn-primary">Go to Recipe</a>
+						<a className="btn btn-primary">Go to Recipe</a>
 					</div>
 				</div>
 			</div>
