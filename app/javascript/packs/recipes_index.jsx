@@ -42,7 +42,7 @@ class App extends Component {
 		//console.log("search_results " + this.state.searchResults.count)
 		//console.log("response " + response)
 		let searchList = this.state.searchResults.map((response) => {
-			return <div className='col-md-4'>
+			return <div className='col-md-3'>
 				<div className="card">
 					<img style={{ width: '100%', height: '100px' }} src={response.image} className="card-img-top" alt="Image" />
 					<div className="card-body">
