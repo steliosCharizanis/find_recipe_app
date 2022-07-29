@@ -30,6 +30,8 @@ Run the following commands to create and setup the database.
 rails db:create db:migrate
 ```
 
+<img src="public/db_schema.png" alt="db_schema" width="100%"/>
+
 ##### 4. Initialize/Import data
 
 Run the following commands to import data.
