@@ -68,6 +68,7 @@ class App extends Component {
 					name="item-input"
 					charCodes={[32, 44, 13]}
 					placeholder="Enter whatever items you want; separate them with COMMA, ENTER or SPACE."
+					style={{ width: "100%" }}
 				/>
 				<div>
 					<label>
