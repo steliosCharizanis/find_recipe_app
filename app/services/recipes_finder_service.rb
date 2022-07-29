@@ -1,4 +1,4 @@
-class RecipeService
+class RecipesFinderService
 	include RecipesHelper
 
 	def initialize(ingredients_array, have_basic_ingredients, all_ingredients = Ingredient.select(:id, :name))
@@ -7,9 +7,13 @@ class RecipeService
 		@have_basic_ingredients = have_basic_ingredients
 	end
 
+	def call
+		find_recipes_one_query
+	end
+
 	def find_recipes_one_query
 		Recipe.joins(:recipe_ingredients)
-			.left_outer_join_ingredients(all_ingredients.join(','))
+			.containing_ingredient_ids(all_ingredients.join(','))
 			.where(id: recipe_ids)
 			.select(:id, :title, :prep_time, :cook_time, :ratings, :image, "count(recipe_ingredients.ingredient_id) - count(i.id) as missing")
 			.group_by_id

@@ -9,7 +9,7 @@ class Recipe < ApplicationRecord
 	validates :cook_time, :prep_time, presence: true, numericality: { only_integer: true }
 
 	#scope :available_for_charging, -> (business) { where(business_id: business.id, processed: false, invoice_excluded: false, billing_transaction: nil) }
-	scope :left_outer_join_ingredients, -> (ingredients) { joins("left join ingredients i on i.id = recipe_ingredients.ingredient_id and i.id in (#{ingredients})") }
+	scope :containing_ingredient_ids, -> (ingredient_ids) { joins("left join ingredients i on i.id = recipe_ingredients.ingredient_id and i.id in (#{ingredient_ids})") }
 	scope :group_by_id, -> { group(:id) }
 	scope :order_by_missing, -> { order("missing")}
 	scope :order_by_ratings, -> { order(ratings: :desc) }
