@@ -20,6 +20,8 @@ git clone https://github.com/steliosCharizanis/find_recipe_app.git
 
 ```bash
 bundle install
+bundle exec rake webpacker:install
+bundle exec rake webpacker:install:react
 ```
 
 ##### 3. Create and setup the database
