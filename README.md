@@ -21,8 +21,7 @@ cd find_recipe_app
 
 ```bash
 bundle install
-bundle exec rake webpacker:install
-bundle exec rake webpacker:install:react
+yarn install
 ```
 
 ##### 3. Create and setup the database
