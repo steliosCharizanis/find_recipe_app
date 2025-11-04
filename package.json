@@ -26,7 +26,7 @@
     "heroku-postbuild": "npm run webpack:deploy"
   },
   "engines": {
-    "node": "18.x",
+    "node": "22.x",
     "yarn": "1.x"
   }
 }
