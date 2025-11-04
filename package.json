@@ -24,5 +24,9 @@
   "scripts": {
     "webpack:deploy": "./bin/webpack",
     "heroku-postbuild": "npm run webpack:deploy"
+  },
+  "engines": {
+    "node": "18.x",
+    "yarn": "1.x"
   }
 }
