@@ -22,8 +22,6 @@
     "webpack-dev-server": "^3"
   },
   "scripts": {
-    "webpack:deploy": "./bin/webpack",
-    "heroku-postbuild": "npm run webpack:deploy"
   },
   "engines": {
     "node": "16.x",
