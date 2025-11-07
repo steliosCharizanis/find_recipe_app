@@ -8,7 +8,18 @@ class RecipesFinderService
 	end
 
 	def call
-		find_recipes_one_query
+		cache_key = generate_cache_key
+
+		Rails.cache.fetch(cache_key, expires_in: 1.hour) do
+			find_recipes_one_query
+		end
+	end
+
+	private
+
+	def generate_cache_key
+		ingredients_key = @ingredients.sort.join(',')
+		"recipe_search:#{ingredients_key}:basic_#{@have_basic_ingredients}"
 	end
 
 	def find_recipes_one_query
