@@ -44,6 +44,40 @@ class App extends Component {
 		});
 	}
 
+	renderStars(rating) {
+		const fullStars = Math.floor(rating);
+		const decimalPart = rating % 1;
+		const hasPartialStar = decimalPart > 0;
+		const emptyStars = 5 - fullStars - (hasPartialStar ? 1 : 0);
+
+		return (
+			<span style={{ fontSize: '18px' }}>
+				<span style={{ color: '#ffc107' }}>{'★'.repeat(fullStars)}</span>
+				{hasPartialStar && (
+					<span style={{
+						position: 'relative',
+						display: 'inline-block',
+						width: '1em'
+					}}>
+						<span style={{ color: '#ddd' }}>★</span>
+						<span style={{
+							position: 'absolute',
+							left: 0,
+							top: 0,
+							width: `${decimalPart * 100}%`,
+							overflow: 'hidden',
+							color: '#ffc107'
+						}}>★</span>
+					</span>
+				)}
+				<span style={{ color: '#ddd' }}>{'★'.repeat(emptyStars)}</span>
+				<span style={{ color: '#6c757d', marginLeft: '5px', fontSize: '14px' }}>
+					({rating})
+				</span>
+			</span>
+		);
+	}
+
 	render() {
 		//console.log("search_results " + this.state.searchResults.count)
 		//console.log("response " + response)
@@ -54,7 +88,7 @@ class App extends Component {
 					<div className="card-body">
 						<h5 className="card-title">{response.title}</h5>
 						<p className="card-text">{response.missing_ingredients_text}</p>
-						<p>ratings {response.ratings}</p>
+						<div className="mb-2">{this.renderStars(response.ratings)}</div>
 						<p>eat in {response.total_time} minutes</p>
 						<a className="btn btn-primary">Go to Recipe</a>
 					</div>
