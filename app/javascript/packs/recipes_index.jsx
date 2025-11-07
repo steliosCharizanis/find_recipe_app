@@ -54,6 +54,31 @@ class App extends Component {
 		});
 	}
 
+	renderMissingBadge(missingCount) {
+		let badgeClass = '';
+		let badgeText = '';
+
+		if (missingCount === 0) {
+			badgeClass = 'badge bg-success';
+			badgeText = '✓ Can make now!';
+		} else if (missingCount === 1) {
+			badgeClass = 'badge bg-warning text-dark';
+			badgeText = `Missing ${missingCount} ingredient`;
+		} else if (missingCount <= 3) {
+			badgeClass = 'badge bg-warning text-dark';
+			badgeText = `Missing ${missingCount} ingredients`;
+		} else {
+			badgeClass = 'badge bg-danger';
+			badgeText = `Missing ${missingCount} ingredients`;
+		}
+
+		return (
+			<div className="mb-2">
+				<span className={badgeClass}>{badgeText}</span>
+			</div>
+		);
+	}
+
 	renderStars(rating) {
 		const fullStars = Math.floor(rating);
 		const decimalPart = rating % 1;
@@ -113,7 +138,7 @@ class App extends Component {
 							WebkitBoxOrient: 'vertical',
 							minHeight: '3em'
 						}}>{response.title}</h5>
-						<p className="card-text">{response.missing_ingredients_text}</p>
+						{this.renderMissingBadge(response.missing_ingredients_count)}
 						<div className="mb-2">{this.renderStars(response.ratings)}</div>
 						<p>eat in {response.total_time} minutes</p>
 						<div style={{ marginTop: 'auto' }}>
