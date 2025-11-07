@@ -9,7 +9,8 @@ class App extends Component {
 		this.state = {
 			items: [],
 			searchResults: [],
-			isChecked: false
+			isChecked: false,
+			isLoading: false
 		};
 
 		this.handleChange = this.handleChange.bind(this);
@@ -30,11 +31,16 @@ class App extends Component {
 	getSearchResults(e) {
 		console.log("items " + e)
 		this.setState({
-			items: e
+			items: e,
+			isLoading: true
 		}, () => {
 			fetch('/search?items=' + this.state.items + '&haveBasicIngredients=' + this.state.isChecked)
 				.then(response => response.json())
-				.then(data => this.setState({ searchResults: data.recipes }))
+				.then(data => this.setState({ searchResults: data.recipes, isLoading: false }))
+				.catch(error => {
+					console.error('Error fetching recipes:', error);
+					this.setState({ isLoading: false });
+				});
 		});
 	}
 
@@ -76,6 +82,14 @@ class App extends Component {
 						<span>  I have basic ingredients (salt, pepper, water)</span>
 					</label>
 				</div>
+				{this.state.isLoading && (
+					<div className="text-center my-5">
+						<div className="spinner-border text-primary" role="status">
+							<span className="visually-hidden">Loading...</span>
+						</div>
+						<p className="mt-2">Searching for recipes...</p>
+					</div>
+				)}
 				<div className='row'>
 					{searchList}
 				</div>
