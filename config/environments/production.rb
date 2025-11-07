@@ -63,6 +63,7 @@ Rails.application.configure do
     read_timeout: 0.2,
     write_timeout: 0.2,
     reconnect_attempts: 1,
+    ssl_params: { verify_mode: OpenSSL::SSL::VERIFY_NONE },
     error_handler: -> (method:, returning:, exception:) {
       Rails.logger.error("Redis cache error: #{exception.message}")
     }
