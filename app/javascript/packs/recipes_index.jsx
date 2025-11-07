@@ -82,15 +82,33 @@ class App extends Component {
 		//console.log("search_results " + this.state.searchResults.count)
 		//console.log("response " + response)
 		let searchList = this.state.searchResults.map((response) => {
-			return <div className='col-md-3'>
-				<div className="card">
-					<img style={{ width: '100%', height: '100px' }} src={response.image} className="card-img-top" alt="Image" />
-					<div className="card-body">
-						<h5 className="card-title">{response.title}</h5>
+			return <div className='col-md-3 mb-4'>
+				<div className="card h-100" style={{ display: 'flex', flexDirection: 'column' }}>
+					<img
+						style={{ width: '100%', height: '200px', objectFit: 'cover' }}
+						src={response.image}
+						className="card-img-top"
+						alt={response.title}
+						onError={(e) => {
+							e.target.onerror = null;
+							e.target.src = 'https://via.placeholder.com/300x200/e9ecef/6c757d?text=No+Image';
+						}}
+					/>
+					<div className="card-body" style={{ display: 'flex', flexDirection: 'column', flex: 1 }}>
+						<h5 className="card-title" style={{
+							overflow: 'hidden',
+							textOverflow: 'ellipsis',
+							display: '-webkit-box',
+							WebkitLineClamp: 2,
+							WebkitBoxOrient: 'vertical',
+							minHeight: '3em'
+						}}>{response.title}</h5>
 						<p className="card-text">{response.missing_ingredients_text}</p>
 						<div className="mb-2">{this.renderStars(response.ratings)}</div>
 						<p>eat in {response.total_time} minutes</p>
-						<a className="btn btn-primary">Go to Recipe</a>
+						<div style={{ marginTop: 'auto' }}>
+							<a className="btn btn-primary">Go to Recipe</a>
+						</div>
 					</div>
 				</div>
 			</div>
