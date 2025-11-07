@@ -88,7 +88,7 @@ GEM
     connection_pool (2.5.4)
     crass (1.0.6)
     diff-lcs (1.5.0)
-    digest (3.1.0)
+    digest (3.2.1)
     erubi (1.10.0)
     execjs (2.8.1)
     ffi (1.15.5)
