@@ -1,10 +1,11 @@
 class RecipesFinderService
 	include RecipesHelper
 
-	def initialize(ingredients_array, have_basic_ingredients, all_ingredients = Ingredient.select(:id, :name))
+	def initialize(ingredients_array, have_basic_ingredients, sort_by = 'highest_rated', all_ingredients = Ingredient.select(:id, :name))
 		@ingredients = ingredients_array
 		@all_ingredients = all_ingredients
 		@have_basic_ingredients = have_basic_ingredients
+		@sort_by = sort_by
 	end
 
 	def call
@@ -19,18 +20,25 @@ class RecipesFinderService
 
 	def generate_cache_key
 		ingredients_key = @ingredients.sort.join(',')
-		"recipe_search:#{ingredients_key}:basic_#{@have_basic_ingredients}"
+		"recipe_search:#{ingredients_key}:basic_#{@have_basic_ingredients}:sort_#{@sort_by}"
 	end
 
 	def find_recipes_one_query
-		Recipe.joins(:recipe_ingredients)
+		query = Recipe.joins(:recipe_ingredients)
 			.containing_ingredient_ids(all_ingredients.join(','))
 			.where(id: RecipeIngredient.where(ingredient_id: matching_ingredients).select(:recipe_id))
 			.select(:id, :title, :prep_time, :cook_time, :ratings, :image, "count(recipe_ingredients.ingredient_id) - count(i.id) as missing")
 			.group_by_id
-			.order_by_missing
-			.order_by_ratings
-			.limit(20)
+
+		# Always sort by fewest missing ingredients first, then by user preference
+		query = case @sort_by
+		when 'quickest'
+			query.order_by_missing.order(Arel.sql("(recipes.prep_time + recipes.cook_time) ASC"))
+		else # 'highest_rated' (default)
+			query.order_by_missing.order_by_ratings
+		end
+
+		query.limit(20)
 			.map{ |r| Recipe.new(id: r.id, title: r.title, prep_time: r.prep_time, cook_time: r.cook_time, ratings: r.ratings, image: r.image, missing_ingredients_count: r.missing) }
 	end
 

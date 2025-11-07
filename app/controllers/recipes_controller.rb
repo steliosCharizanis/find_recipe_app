@@ -11,7 +11,8 @@ class RecipesController < ApplicationController
     validate_search_params!
 
     items = parse_items(params[:items])
-    recipes = items.empty? ? [] : RecipesFinderService.new(items, params[:haveBasicIngredients]).call
+    sort_by = params[:sortBy] || 'highest_rated'
+    recipes = items.empty? ? [] : RecipesFinderService.new(items, params[:haveBasicIngredients], sort_by).call
     recipes = ActiveModelSerializers::SerializableResource.new(recipes, each_serializer: RecipeSerializer)
 
     render json: { recipes: recipes }, status: 200

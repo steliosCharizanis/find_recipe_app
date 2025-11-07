@@ -10,17 +10,27 @@ class App extends Component {
 			items: [],
 			searchResults: [],
 			isChecked: false,
-			isLoading: false
+			isLoading: false,
+			sortBy: 'highest_rated'
 		};
 
 		this.handleChange = this.handleChange.bind(this);
 		this.handleSubmit = this.handleSubmit.bind(this);
+		this.handleSortChange = this.handleSortChange.bind(this);
 	}
 
 	handleChange(event) {
 		this.setState({ isChecked: !this.state.isChecked });
 		if (this.state.items.length > 0)
 			this.getSearchResults(this.state.items)
+	}
+
+	handleSortChange(sortBy) {
+		this.setState({ sortBy }, () => {
+			if (this.state.items.length > 0) {
+				this.getSearchResults(this.state.items);
+			}
+		});
 	}
 
 	handleSubmit(event) {
@@ -34,7 +44,7 @@ class App extends Component {
 			items: e,
 			isLoading: true
 		}, () => {
-			fetch('/search?items=' + this.state.items + '&haveBasicIngredients=' + this.state.isChecked)
+			fetch('/search?items=' + this.state.items + '&haveBasicIngredients=' + this.state.isChecked + '&sortBy=' + this.state.sortBy)
 				.then(response => response.json())
 				.then(data => this.setState({ searchResults: data.recipes, isLoading: false }))
 				.catch(error => {
@@ -134,6 +144,27 @@ class App extends Component {
 						<span>  I have basic ingredients (salt, pepper, water)</span>
 					</label>
 				</div>
+				{this.state.items.length > 0 && (
+					<div className="mt-3 mb-3">
+						<small className="text-muted d-block mb-2">Sort results by:</small>
+						<div className="btn-group" role="group" aria-label="Sort options">
+							<button
+								type="button"
+								className={`btn ${this.state.sortBy === 'highest_rated' ? 'btn-primary' : 'btn-outline-primary'}`}
+								onClick={() => this.handleSortChange('highest_rated')}
+							>
+								⭐ Highest Rated
+							</button>
+							<button
+								type="button"
+								className={`btn ${this.state.sortBy === 'quickest' ? 'btn-primary' : 'btn-outline-primary'}`}
+								onClick={() => this.handleSortChange('quickest')}
+							>
+								⏱️ Quickest
+							</button>
+						</div>
+					</div>
+				)}
 				{this.state.isLoading && (
 					<div className="text-center my-5">
 						<div className="spinner-border text-primary" role="status">
