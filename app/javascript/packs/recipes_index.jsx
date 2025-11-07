@@ -119,16 +119,31 @@ class App extends Component {
 		let searchList = this.state.searchResults.map((response) => {
 			return <div className='col-md-3 mb-4'>
 				<div className="card h-100" style={{ display: 'flex', flexDirection: 'column' }}>
-					<img
-						style={{ width: '100%', height: '200px', objectFit: 'cover' }}
-						src={response.image}
-						className="card-img-top"
-						alt={response.title}
-						onError={(e) => {
-							e.target.onerror = null;
-							e.target.src = 'https://via.placeholder.com/300x200/e9ecef/6c757d?text=No+Image';
-						}}
-					/>
+					{response.image ? (
+						<img
+							style={{ width: '100%', height: '200px', objectFit: 'cover' }}
+							src={response.image}
+							className="card-img-top"
+							alt={response.title}
+							onError={(e) => {
+								e.target.style.display = 'none';
+								e.target.nextSibling.style.display = 'flex';
+							}}
+						/>
+					) : null}
+					<div style={{
+						width: '100%',
+						height: '200px',
+						backgroundColor: '#e9ecef',
+						display: response.image ? 'none' : 'flex',
+						alignItems: 'center',
+						justifyContent: 'center',
+						color: '#6c757d',
+						fontSize: '14px',
+						fontWeight: '500'
+					}}>
+						No Image Available
+					</div>
 					<div className="card-body" style={{ display: 'flex', flexDirection: 'column', flex: 1 }}>
 						<h5 className="card-title" style={{
 							overflow: 'hidden',
