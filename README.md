@@ -42,7 +42,23 @@ Run the following commands to import data.
 rake import:ingredients import:recipes import_associations:recipe_ingredients
 ```
 
-##### 4. Start the Rails server
+##### 5. Fix image URLs
+
+The imported recipe data contains broken proxy URLs for images. Run the fix script in Rails console:
+
+```bash
+rails console
+```
+
+Then paste and run:
+
+```ruby
+load 'lib/fix_images.rb'
+```
+
+This will extract the direct image URLs from the proxy URLs (~10,000 recipes, takes ~2 minutes).
+
+##### 6. Start the Rails server
 
 You can start the rails server using the command given below.
 
@@ -50,7 +66,7 @@ You can start the rails server using the command given below.
 rails s
 ```
 
-##### 5. Start Webpack dev server
+##### 7. Start Webpack dev server
 
 You can start the webpack react dev server using the command given below.
 
@@ -60,7 +76,7 @@ You can start the webpack react dev server using the command given below.
 
 And now you can visit the site with the URL http://localhost:3000
 
-##### 6. Running unit tests
+##### 8. Running unit tests
 
 You can run specs using the command given below
 
@@ -68,7 +84,7 @@ You can run specs using the command given below
 rspec spec/models/recipe_spec.rb spec/models/ingredient_spec.rb spec/requests/recipes_spec.rb
 ```
 
-##### 7. Production demo url
+##### 9. Production demo url
 
 You can visit the demo for the app at the following url
 
