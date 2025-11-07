@@ -7,13 +7,13 @@ A Simple prototype recipe finder app for quick cooking with what you have
 The setups steps expect following tools installed on the system.
 
 - Github
-- Ruby [3.1.0]
+- Ruby [3.3.0]
 - Rails [6.1]
 
 ##### 1. Check out the repository
 
 ```bash
-git clone https://github.com/steliosCharizanis/find_recipe_app.git\
+git clone https://github.com/steliosCharizanis/find_recipe_app.git
 cd find_recipe_app
 ```
 
@@ -62,7 +62,7 @@ This will extract the direct image URLs from the proxy URLs (~10,000 recipes, ta
 
 You can start the rails server using the command given below.
 
-```ruby
+```bash
 rails s
 ```
 
