@@ -168,25 +168,25 @@ class App extends Component {
 		return (
 			<div className="container">
 				<h1>Cook with what you have!</h1>
-				<p>Enter ingredients and find a recipe to cook</p>
+				<p className="lead text-muted mb-4">Find recipes that match your ingredients - reduce food waste, save money</p>
 				<MultipleValueTextInput
 					onItemAdded={(item, allItems) => { this.state.items.push(item); this.getSearchResults(allItems) }}
 					onItemDeleted={(item, allItems) => { this.state.items.pop(item); this.getSearchResults(allItems) }}
 					label="Ingredients"
 					name="item-input"
 					charCodes={[32, 44, 13]}
-					placeholder="Enter whatever items you want; separate them with COMMA, ENTER or SPACE."
+					placeholder="e.g., chicken, tomatoes, garlic..."
 					style={{ width: "100%" }}
 				/>
 				<div>
 					<label>
 						<input type="checkbox" defaultChecked={this.state.isChecked} onChange={this.handleChange} />
-						<span>  I have basic ingredients (salt, pepper, water)</span>
+						<span>  I also have pantry basics (salt, pepper, water)</span>
 					</label>
 				</div>
 				{this.state.items.length > 0 && (
 					<div className="mt-3 mb-3">
-						<small className="text-muted d-block mb-2">Sort results by:</small>
+						<small className="text-muted d-block mb-2">Results sorted by fewest missing, then by:</small>
 						<div className="btn-group" role="group" aria-label="Sort options">
 							<button
 								type="button"
