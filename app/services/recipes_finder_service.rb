@@ -14,52 +14,13 @@ class RecipesFinderService
 	def find_recipes_one_query
 		Recipe.joins(:recipe_ingredients)
 			.containing_ingredient_ids(all_ingredients.join(','))
-			.where(id: recipe_ids)
+			.where(id: RecipeIngredient.where(ingredient_id: matching_ingredients).select(:recipe_id))
 			.select(:id, :title, :prep_time, :cook_time, :ratings, :image, "count(recipe_ingredients.ingredient_id) - count(i.id) as missing")
 			.group_by_id
 			.order_by_missing
 			.order_by_ratings
 			.limit(20)
 			.map{ |r| Recipe.new(id: r.id, title: r.title, prep_time: r.prep_time, cook_time: r.cook_time, ratings: r.ratings, image: r.image, missing_ingredients_count: r.missing) }
-	end
-
-	def find_recipes
-		if recipe_ids_with_all_ingredients.count > 19
-			recipes_with_all_ingredients
-		else
-			recipes_with_all_ingredients + recipes_with_ingredients_missing
-		end
-	end
-
-	def recipes_with_all_ingredients
-		Recipe.where(id: recipe_ids_with_all_ingredients)
-			.order_by_ratings
-			.limit(20)
-			.map{ |r| Recipe.new(id: r.id, title: r.title, prep_time: r.prep_time, cook_time: r.cook_time, ratings: r.ratings, image: r.image, missing_ingredients_count: 0) }
-	end
-
-	def recipes_with_ingredients_missing
-		Recipe.joins(:recipe_ingredients)
-		.where(id: recipe_ids)
-		.where.not(recipe_ingredients: {ingredient_id: all_ingredients})
-		.select(:id, :title, :prep_time, :cook_time, :ratings, :image, "count(ingredient_id) as missing")
-		.group_by_id
-		.order_by_missing
-		.order_by_ratings
-		.limit(20 - recipe_ids_with_all_ingredients.count)
-		.map{ |r| Recipe.new(id: r.id, title: r.title, prep_time: r.prep_time, cook_time: r.cook_time, ratings: r.ratings, image: r.image, missing_ingredients_count: r.missing) }
-	end
-
-	def recipe_ids
-		RecipeIngredient.where(ingredient_id: matching_ingredients).select(:recipe_id).pluck(:recipe_id).uniq
-	end
-
-	def recipe_ids_with_ingredients_missing
-		RecipeIngredient.where(recipe_id: recipe_ids).where.not(ingredient_id: all_ingredients).select(:recipe_id).pluck(:recipe_id).uniq
-	end
-
-	def recipe_ids_with_all_ingredients
-		recipe_ids - recipe_ids_with_ingredients_missing
 	end
 
 	def all_ingredients
