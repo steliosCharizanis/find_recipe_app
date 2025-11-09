@@ -4,7 +4,7 @@ A Simple prototype recipe finder app for quick cooking with what you have
 
 ##### Prerequisites
 
-The setups steps expect following tools installed on the system.
+The setup steps expect following tools installed on the system.
 
 - Github
 - Ruby [3.3.0]
@@ -38,7 +38,7 @@ rails db:create db:migrate
 
 Run the following commands to import data.
 
-```ruby
+```bash
 rake import:ingredients import:recipes import_associations:recipe_ingredients
 ```
 
