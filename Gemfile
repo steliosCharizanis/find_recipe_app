@@ -41,8 +41,6 @@ gem 'webpacker'
 
 gem 'activerecord-import'
 
-gem 'fuzzy-string-match', '~> 0.9.7'
-
 gem 'active_model_serializers', '~> 0.10.8', require: true
 
 gem 'net-imap', require: false

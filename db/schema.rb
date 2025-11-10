@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2025_11_07_123009) do
+ActiveRecord::Schema.define(version: 2025_11_10_141849) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -20,7 +20,9 @@ ActiveRecord::Schema.define(version: 2025_11_07_123009) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.boolean "is_basic_ingredient", default: false
+    t.tsvector "name_tsv"
     t.index ["name"], name: "index_ingredients_on_name", unique: true
+    t.index ["name_tsv"], name: "index_ingredients_on_name_tsv", using: :gin
   end
 
   create_table "recipe_ingredients", force: :cascade do |t|

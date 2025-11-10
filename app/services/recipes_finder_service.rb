@@ -1,9 +1,6 @@
 class RecipesFinderService
-	include RecipesHelper
-
-	def initialize(ingredients_array, have_basic_ingredients, sort_by = 'highest_rated', all_ingredients = Ingredient.select(:id, :name))
+	def initialize(ingredients_array, have_basic_ingredients, sort_by = 'highest_rated')
 		@ingredients = ingredients_array
-		@all_ingredients = all_ingredients
 		@have_basic_ingredients = have_basic_ingredients
 		@sort_by = sort_by
 	end
@@ -55,11 +52,8 @@ class RecipesFinderService
 	end
 
 	def ingredients_by_name(ingredient)
-		Rails.cache.fetch(ingredient, expires_in: 1.hour) do
-			@all_ingredients
-					.select { |i| !i[:name].split(" ").select { |word| string_compare_metric(word,ingredient) > 0.9 }.empty? }
-					.pluck(:id).to_a
-		end
+		# Delegate to Ingredient model which now uses full-text search
+		Ingredient.search_by_name(ingredient)
 	end
 
 	def basic_ingredient_ids

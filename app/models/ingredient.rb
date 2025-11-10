@@ -1,6 +1,4 @@
 class Ingredient < ApplicationRecord
-	include RecipesHelper
-
 	BASIC_INGREDIENTS = %w(salt pepper water)
 	has_many :recipe_ingredients
 	has_many :recipes, through: :recipe_ingredients
@@ -11,11 +9,12 @@ class Ingredient < ApplicationRecord
 
 	scope :get_basic_ingredients, -> { where(is_basic_ingredient: true) }
 
-	def self.search_by_name(item)
-		Rails.cache.fetch(item, expires_in: 1.hour) do
-			Ingredient.select(:id, :name)
-					.select { |i| !i[:name].split(" ").select { |word| string_compare_metric(word,item) > 0.9 }.empty? }
-					.pluck(:id)
+	def self.search_by_name(query)
+		Rails.cache.fetch("ingredient_fts:#{query}", expires_in: 1.hour) do
+			# Use PostgreSQL full-text search with tsvector
+			where("name_tsv @@ plainto_tsquery('english', ?)", query)
+				.order(Arel.sql("ts_rank(name_tsv, plainto_tsquery('english', #{connection.quote(query)})) DESC"))
+				.pluck(:id)
 		end
 	end
 
