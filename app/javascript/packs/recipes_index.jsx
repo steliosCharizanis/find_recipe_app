@@ -46,7 +46,10 @@ class App extends Component {
 		}, () => {
 			fetch('/search?items=' + this.state.items + '&haveBasicIngredients=' + this.state.isChecked + '&sortBy=' + this.state.sortBy)
 				.then(response => response.json())
-				.then(data => this.setState({ searchResults: data.recipes, isLoading: false }))
+				.then(data => {
+					console.log('Search results:', data.recipes.length, 'recipes found');
+					this.setState({ searchResults: data.recipes, isLoading: false });
+				})
 				.catch(error => {
 					console.error('Error fetching recipes:', error);
 					this.setState({ isLoading: false });
