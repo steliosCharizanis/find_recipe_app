@@ -213,6 +213,12 @@ class App extends Component {
 						<p className="mt-2">Searching for recipes...</p>
 					</div>
 				)}
+				{!this.state.isLoading && this.state.items.length > 0 && this.state.searchResults.length === 0 && (
+					<div className="alert alert-info text-center my-5" role="alert">
+						<h5>No recipes found</h5>
+						<p className="mb-0">We couldn't find any recipes matching your ingredients. Try different ingredient names or check your spelling.</p>
+					</div>
+				)}
 				<div className='row'>
 					{searchList}
 				</div>
