@@ -21,6 +21,9 @@ class RecipesFinderService
 	end
 
 	def find_recipes_one_query
+		# Return empty array if no matching ingredients found
+		return [] if matching_ingredients.empty?
+
 		query = Recipe.joins(:recipe_ingredients)
 			.containing_ingredient_ids(all_ingredients.join(','))
 			.where(id: RecipeIngredient.where(ingredient_id: matching_ingredients).select(:recipe_id))
